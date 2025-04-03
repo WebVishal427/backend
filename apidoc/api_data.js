@@ -1,0 +1,92 @@
+define({ "api": [
+  {
+    "type": "post",
+    "url": "/api/common/file-upload",
+    "title": "File Upload",
+    "version": "1.0.0",
+    "name": "File_Upload",
+    "group": "Masters",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "File",
+            "optional": false,
+            "field": "file",
+            "description": "<p>Document file.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "type",
+            "description": "<p>Type (Ex.Document, Type can be which file you are uploading).</p>"
+          }
+        ]
+      }
+    },
+    "filename": "src/controllers/CommonController.ts",
+    "groupTitle": "Masters"
+  },
+  {
+    "type": "post",
+    "url": "/api/common/image-upload",
+    "title": "Image Upload",
+    "version": "1.0.0",
+    "name": "Image_Upload",
+    "group": "Masters",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "File",
+            "optional": false,
+            "field": "image",
+            "description": "<p>Image.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "type",
+            "description": "<p>Type (Ex.Profile, Type can be which image you are uploading).</p>"
+          }
+        ]
+      }
+    },
+    "filename": "src/controllers/CommonController.ts",
+    "groupTitle": "Masters"
+  },
+  {
+    "type": "post",
+    "url": "/api/common/multiple-image-upload",
+    "title": "Multiple Image Upload",
+    "version": "1.0.0",
+    "name": "Multiple_Image_Upload",
+    "group": "Masters",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "File",
+            "optional": false,
+            "field": "images",
+            "description": "<p>Array of images.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "type",
+            "description": "<p>Type (Ex.Profile, Type can be which file you are uploading).</p>"
+          }
+        ]
+      }
+    },
+    "filename": "src/controllers/CommonController.ts",
+    "groupTitle": "Masters"
+  }
+] });

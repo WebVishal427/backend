@@ -1,0 +1,21 @@
+export declare const Permissions: {
+    DASHBOARD: string;
+    CUSTOMER: string;
+    CHALLENGE: string;
+    USERCHALLENGE: string;
+    FEED: string;
+    LEADERBOARD: string;
+    CATEGORY: string;
+    ATTRIBUTE: string;
+    PRODUCT: string;
+    CONTENTMEDIA: string;
+    COUPON: string;
+    SUPPORT: string;
+    CMS: string;
+    EMAIL: string;
+    ORDER: string;
+    CONTENT: string;
+    ROLE: string;
+    SUBADMIN: string;
+    REPORTS: string;
+};

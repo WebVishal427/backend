@@ -1,0 +1,14 @@
+{
+  "name": "Dunnit Backend Apis",
+  "version": "1.0.0",
+  "description": "The Quickly application is to display online products and gives a closed platform to all the vendors. Online Ecommerce Application for iPhone, Android and Website. and the base URL for accessing APIs : http://153.92.4.13:5980",
+  "sampleUrl": false,
+  "defaultVersion": "0.0.0",
+  "apidoc": "0.3.0",
+  "generator": {
+    "name": "apidoc",
+    "time": "2025-04-03T06:01:57.433Z",
+    "url": "https://apidocjs.com",
+    "version": "0.29.0"
+  }
+}
