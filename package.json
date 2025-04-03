@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon --exec ts-node src/index.ts",
-    "build": "tsc",
+    "build": "[my-framework] build --output public",
     "doc": "apidoc -i src -o apidoc"
   },
   "author": "Harshit Maheshwari",
