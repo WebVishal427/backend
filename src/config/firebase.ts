@@ -1,5 +1,7 @@
 const firebaseAdmin = require("firebase-admin");
-const serviceAccount = require("../../push-notify.json");
+const serviceAccount = {
+  
+};
 
 firebaseAdmin.initializeApp({
   credential: firebaseAdmin.credential.cert(serviceAccount),
