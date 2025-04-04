@@ -1,18 +1,18 @@
 import * as dotenv from "dotenv";
 dotenv.config({ path: "./.env" });
-import * as express from "express";
-import * as mongoose from "mongoose";
-import * as cors from "cors";
+
+import express from "express";
+import mongoose from "mongoose";
+import cors from "cors";
 import { env } from "./environments/Env";
 import Routes from "./routes/Routes";
 import { NextFunction } from "express";
-import path = require("path");
+import path from "path";
 import { ReqInterface, ResInterface } from "./interfaces/RequestInterface";
 
 const cookieParser = require("cookie-parser");
-// let’s you use the cookieParser in your application
 
-export class Server {
+class Server {
   public app: express.Application = express();
 
   constructor() {
@@ -22,12 +22,13 @@ export class Server {
     this.handleErrors();
   }
 
-  setConfigurations() {
+  private setConfigurations() {
     this.enableCors();
     this.configBodyParser();
+    this.connectDatabase();
   }
 
-  enableCors() {
+  private enableCors() {
     this.app.use(
       cors({
         origin: true,
@@ -36,49 +37,60 @@ export class Server {
     );
   }
 
-  configBodyParser() {
+  private configBodyParser() {
     this.app.use(express.urlencoded({ extended: true, limit: "10mb" }));
     this.app.use(express.json({ limit: "10mb" }));
+    this.app.use(cookieParser());
   }
 
-  setRoutes() {
+
+  private async connectDatabase() {
+    try {
+      await mongoose.connect(env?.DB_URL, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      } as mongoose.ConnectOptions);
+      console.log("Connected to MongoDB");
+    } catch (error) {
+      console.error("MongoDB connection error:", error);
+    }
+  }
+
+  private setRoutes() {
     this.app.use(
       (req: ReqInterface, res: ResInterface, next: express.NextFunction) => {
         res.startTime = new Date().getTime();
-        console.log(`Api URL => ${req.url} (${req.method})`);
-        console.log("request-body", req.body);
+        console.log(`API URL => ${req.url} (${req.method})`);
+        console.log("Request Body:", req.body);
         next();
       }
     );
-    this.app.use(
-      "/api-doc",
-      express.static(path.resolve(process.cwd() + "/apidoc"))
-    );
-    this.app.use(
-      "/img",
-      express.static(path.resolve(process.cwd() + "/assest/images"))
-    );
+
+    this.app.use("/api-doc", express.static(path.resolve(process.cwd(), "apidoc")));
+    this.app.use("/img", express.static(path.resolve(process.cwd(), "assets/images")));
     this.app.use("/api", Routes);
   }
 
-  error404Handler() {
-    this.app.use((req, res) => {
+  private error404Handler() {
+    this.app.use((_req, res) => {
       res.status(404).json({
-        message: "Route not found test",
+        message: "Route not found",
         status: 404,
       });
     });
   }
 
-  handleErrors() {
-    this.app.use((error: any, req, res, next: NextFunction) => {
-      const errorStatus = req.errorStatus;
-      res.status(errorStatus || 500).json({
-        message: error.message || "Something went wrong!!",
-        statusText: error.statusText || "ERROR",
-        status: errorStatus || 500,
+  private handleErrors() {
+    this.app.use((error: any, _req: ReqInterface, res: ResInterface, _next: NextFunction) => {
+      const errorStatus = error.status || 500;
+      res.status(errorStatus).json({
+        message: error.message || "Something went wrong!",
+        status: error.statusText || "ERROR",
         data: {},
       });
     });
   }
 }
+
+const server = new Server();
+export default server.app;

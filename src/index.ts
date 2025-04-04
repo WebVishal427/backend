@@ -1,9 +1,12 @@
-import { Server } from "./server";
+import server from "./server"; // Import the Express instance
 
-const server: any = require("http").Server(new Server().app);
+const http = require("http");
 
-let port = process.env.PORT || 1998;
+const port = process.env.PORT || 1998;
 
-server.listen(port, () => {
-  console.log(`server is listening at port ${port}`);
+// Create an HTTP server using the Express instance
+const appServer = http.createServer(server);
+
+appServer.listen(port, () => {
+  console.log(`Server is listening at port ${port}`);
 });
